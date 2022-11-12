@@ -1,0 +1,36 @@
+// Prompt user to input by using get_int
+// If input not in 1-8 zone - reask by do - while
+// Using for - build piramyd - print hash and print new line
+// Using dots - reverse piramyd, using spaces - replace dots
+
+using System;
+using System.Linq.Expressions;
+using System.Runtime.Intrinsics.X86;
+using System.Security.Cryptography;
+
+namespace Mario
+{
+    class Program
+    {
+        static void Main()
+        {
+            Console.WriteLine("Please input digit from 1 to 8.");
+            int n = Convert.ToInt32(Console.ReadLine());
+            do
+            {
+                n = Convert.ToInt32(Console.ReadLine());
+            } while (n < 1 || n > 8);                                        
+            for (int i = 0; i < n; i++)
+            {                          
+                for (int x = i; x < n; x++)                
+                    Console.Write(" ");
+                for (int j = 0; j < i; j++)                
+                    Console.Write("#");
+
+
+                
+                Console.WriteLine("#");
+            }
+        }
+    }
+}
