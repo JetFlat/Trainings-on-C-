@@ -1,0 +1,44 @@
+// Task is to create a function, that will check the card ny it`s number and will return the name of the card if it`s valid, or simply state "invalid" if opossite.
+// Luhn’s Algorithm will be used to determine if valid or not.
+
+using System;
+
+namespace Credit
+{
+    class Prgoram
+    {
+        static void Main()
+        {
+            long card = Convert.ToInt64(Console.ReadLine());  // as card number consists of 13-16 symbols, we will use "long".        
+            long sum_of_num = 0; // variable which will be used to keep a summ of numbers which should be doubled by the Luhn’s Algorithm.
+            long total = 0; // sum of all numbers according to Luhn’s Algorithm.
+            long last = 0; // last digit (starting count from the end) to determine a card maker.
+            long prelast = 0; // prelast digit for the same purposes as above
+            long count = 0; // to determine length of card number
+            while (card > 0)
+            {
+                if (count % 2 == 0) // if number is even - just add to sum (starting from 0 to 15 - as 16 digits)
+                    total += card % 10;
+                else if (count % 2 == 1) // if number is odd - multiply by 2 and add to sum. If >= 10, should be split on digits and they shoud be summed. 12 -- 1+2=3 - and this result add to summ acc. to Luhn’s Algorithm.
+                {
+                    sum_of_num = card % 10 * 2;
+                    if (sum_of_num >= 10)
+                        sum_of_num = (sum_of_num % 10) + (sum_of_num / 10);
+                    total += sum_of_num;
+                }if (card > 0 && card < 10)
+                    last = card % 10;
+                if (card > 9 && card < 99)
+                    prelast = card % 10;
+                count++;
+                card /= 10;               
+            }if ((total%10 == 0) && count == 16 && last == 5 && (prelast >= 1 && prelast <=5)) //checks for each card to determine which card and if valid or not.
+                Console.WriteLine("MASTERCARD");
+            else if((total%10 == 0)&& count == 15 && last == 3 && (prelast == 4 || prelast == 7))
+                Console.WriteLine("AMEX");
+            else if ((total % 10 == 0) && (count == 13 || count == 16) && last == 4)
+                Console.WriteLine("VISA");
+            else
+                Console.WriteLine("INVALID");                                 
+        }
+    }
+}
