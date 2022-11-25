@@ -1,0 +1,67 @@
+using System;
+
+namespace Substitution
+{
+    class Program
+    {
+        static void Main()
+        {
+            Console.WriteLine("Please enter the key of length 26 letters. Only letters can be submited.");
+            string key;
+            do
+            {
+                key = Console.ReadLine();
+                for (int i = 0; i < key.Length; i++)
+                {
+                    if (key == null)
+                        Console.WriteLine("Usage: ./Substituion Key");
+                    else if (char.IsDigit(key[i]))
+                        Console.WriteLine("No any digits are permitted.");
+                    for (int j = i + 1; j < key.Length; j++)
+                    {
+                        if (key[i] == key[j])
+                        {
+                            Console.WriteLine("No duplicates are permitted.");
+                            return;
+                        }                       
+                    }
+                }
+            } while (key.Length != 26);
+            char[] cipher = new char[key.Length]; // cipher is a massive of chars - made of key
+            int l = 0;
+            for (int k = 0; k<cipher.Length; k++)
+            {
+                if (char.IsUpper(key[k]))
+                {     
+                    // whrite a code to make cipher LOWER case massive
+                }
+                else if (char.IsLower(key[k]))
+                {
+                    cipher[k] = key[k];
+                }
+            }
+            Console.WriteLine(cipher);
+            Console.WriteLine("Enter your text to incrypt it.");
+            string plaintext = Console.ReadLine();
+            char[] plain = new char[plaintext.Length]; // plain - plaintext but in massive of chars format
+            for (int a = 0; a < plaintext.Length; a++)
+            {
+                plain[a] = plaintext[a];
+            }
+            int letter = 0;
+            for (int x = 0; x < plain.Length; x++)
+            {
+                if (char.IsUpper(plain[x]))
+                {
+                    letter = plain[x] - 65;
+                    Console.Write(key[letter]);
+                }
+                else if (char.IsLower(plain[x]))
+                {
+                    letter = plain[x] - 97;
+                    Console.Write(Convert.ToChar(key[letter] + 32));
+                }               
+            }                       
+        }
+    }
+}
